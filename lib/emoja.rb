@@ -20,7 +20,7 @@ module Emoja
     private
 
     def data
-      @data ||= JSON.load(File.open('lib/data/emoji_ja.json')).map do |emoji, meta|
+      @data ||= JSON.load(File.open(File.join(__dir__, 'data','emoji_ja.json'))).map do |emoji, meta|
         [emoji, Meta.new(emoji, meta['keywords'], meta['short_name'], meta['group'], meta['subgroup'])]
       end.to_h
     end
