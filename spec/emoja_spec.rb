@@ -10,6 +10,6 @@ RSpec.describe Emoja do
 
   describe :search do
     subject { Emoja.search("猫") }
-    it { is_expected.to eq ["😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾", "🐱", "🐈", "🐾"] }
+    it { is_expected.to eq ["😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾", "🐱", "🐈", "🐈‍⬛", "🐾"] }
   end
 end
