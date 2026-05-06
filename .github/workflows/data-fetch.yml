@@ -1,0 +1,36 @@
+name: Fetch data
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+          bundler-cache: true
+
+      - name: Fetch emoji dictionaries
+        run: bundle exec rake data:fetch
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: automated/data-fetch
+          commit-message: "Update emoji dictionaries"
+          title: "Update emoji dictionaries"
+          body: |
+            Automated update from `yagays/emoji-ja` via `rake data:fetch`.
+          add-paths: lib/data
+          delete-branch: true
