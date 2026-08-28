@@ -1,9 +1,13 @@
-require 'json'
-require 'emoja/version'
+# frozen_string_literal: true
 
+require "json"
+require "emoja/version"
+
+# Translates emoji into Japanese and looks emoji up by Japanese keyword.
 module Emoja
   Meta = Struct.new(:emoji, :keywords, :short_name, :group, :subgroup)
 
+  # Indexes the bundled emoji-ja dictionary by emoji and by keyword.
   class Dictionary
     # No dictionary key carries a presentation modifier, so strip them off
     # before looking an emoji up.
@@ -11,7 +15,7 @@ module Emoja
     private_constant :MODIFIERS
 
     def find(emoji)
-      data[emoji.gsub(MODIFIERS, '')]
+      data[emoji.gsub(MODIFIERS, "")]
     end
 
     def search(keyword)
@@ -25,15 +29,16 @@ module Emoja
     private
 
     def data
-      @data ||= JSON.load(File.open(File.join(__dir__, 'data','emoji_ja.json'))).map do |emoji, meta|
-        [emoji, Meta.new(emoji, meta['keywords'], meta['short_name'], meta['group'], meta['subgroup'])]
-      end.to_h
+      @data ||= JSON.parse(File.read(File.join(__dir__, "data", "emoji_ja.json"))).to_h do |emoji, meta|
+        [emoji, Meta.new(emoji, meta["keywords"], meta["short_name"], meta["group"], meta["subgroup"])]
+      end
     end
 
     def keyword_data
       return @keyword_data if @keyword_data
+
       @keyword_data = {}
-      data.each do |emoji, meta|
+      data.each_value do |meta|
         meta.keywords.each do |k|
           @keyword_data[k] ||= []
           @keyword_data[k] << meta
@@ -44,7 +49,6 @@ module Emoja
   end
 
   class << self
-
     # @param text [String]
     def translate(text)
       text.grapheme_clusters.map do |g|
