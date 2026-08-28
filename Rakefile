@@ -1,8 +1,12 @@
-require 'bundler/gem_tasks'
-require 'rspec/core/rake_task'
+# frozen_string_literal: true
 
-load 'tasks/data.rake'
+require "bundler/gem_tasks"
+require "rspec/core/rake_task"
+require "rubocop/rake_task"
+
+load "tasks/data.rake"
 
 RSpec::Core::RakeTask.new(:spec)
+RuboCop::RakeTask.new
 
-task :default => :spec
+task default: %i[spec rubocop]
