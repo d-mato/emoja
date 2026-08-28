@@ -5,7 +5,7 @@ require "emoja/version"
 
 # Translates emoji into Japanese and looks emoji up by Japanese keyword.
 module Emoja
-  Meta = Struct.new(:emoji, :keywords, :short_name, :group, :subgroup)
+  Meta = Data.define(:emoji, :keywords, :short_name, :group, :subgroup)
 
   # Indexes the bundled emoji-ja dictionary by emoji and by keyword.
   class Dictionary
