@@ -5,8 +5,13 @@ module Emoja
   Meta = Struct.new(:emoji, :keywords, :short_name, :group, :subgroup)
 
   class Dictionary
+    # No dictionary key carries a presentation modifier, so strip them off
+    # before looking an emoji up.
+    MODIFIERS = /[\u{FE0F}\u{1F3FB}-\u{1F3FF}]/
+    private_constant :MODIFIERS
+
     def find(emoji)
-      data[emoji]
+      data[emoji.gsub(MODIFIERS, '')]
     end
 
     def search(keyword)
@@ -42,9 +47,9 @@ module Emoja
 
     # @param text [String]
     def translate(text)
-      text.chars.map do |c|
-        meta = dictionary.find(c)
-        meta ? meta.short_name : c
+      text.grapheme_clusters.map do |g|
+        meta = dictionary.find(g)
+        meta ? meta.short_name : g
       end.join
     end
 
@@ -55,7 +60,7 @@ module Emoja
 
     # @param text [String]
     def include_emoji?(text)
-      !(text.chars & dictionary.emoji_list).empty?
+      text.grapheme_clusters.any? { |g| dictionary.find(g) }
     end
 
     private
