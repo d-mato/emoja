@@ -1,20 +1,30 @@
 # Emoja
 
+Translate emoji into Japanese, and look emoji up by Japanese keyword.
+
+## Installation
+
+```sh
+bundle add emoja
+```
+
 ## Usage
 
 ```ruby
 Emoja.translate("🍎食べたい")
 # => "赤リンゴ食べたい"
 
+Emoja.translate("🐈‍⬛が好き")
+# => "黒猫が好き"
+
 Emoja.search("猫")
-# => ["😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾", "🐱", "🐈", "🐾"] 
+# => ["😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾", "🐱", "🐈", "🐈‍⬛", "🐾"]
+
+Emoja.include_emoji?("🍎")
+# => true
 ```
 
-## Installation
-
-```ruby
-gem 'emoja'
-```
+An emoji the dictionary does not know is left untouched by `translate`.
 
 ## Notice
 
