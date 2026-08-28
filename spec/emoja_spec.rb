@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Emoja do
   it "has a version number" do
     expect(Emoja::VERSION).not_to be nil

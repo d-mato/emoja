@@ -1,0 +1,11 @@
+# TargetRubyVersion is left unset on purpose: RuboCop reads it from
+# required_ruby_version in the gemspec, which ranks above .ruby-version.
+AllCops:
+  NewCops: enable
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*

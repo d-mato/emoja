@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "lib/emoja/version"
 
 Gem::Specification.new do |spec|
@@ -7,7 +9,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["telnetstat@gmail.com"]
 
   spec.summary       = "Translate emoji into Japanese and look emoji up by Japanese keyword"
-  spec.description   = "Emoja replaces the emoji in a string with their Japanese names, and looks emoji up by Japanese keyword, using the emoji-ja dictionary."
+  spec.description   = "Emoja replaces the emoji in a string with their Japanese names, and " \
+                       "looks emoji up by Japanese keyword, using the emoji-ja dictionary."
   spec.homepage      = "https://github.com/d-mato/emoja"
   spec.license       = "MIT"
 
